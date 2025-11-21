@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS users(
+    id INTEGER AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(25) NULL,
+    website VARCHAR(255) NULL,
+
+    CONSTRAINT pk_users PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS posts(
+    id INTEGER AUTO_INCREMENT,
+    title VARCHAR(200) NOT NULL,
+    body VARCHAR(255) NOT NULL,
+    userId INTEGER NOT NULL,
+
+    CONSTRAINT pk_posts PRIMARY KEY (id),
+    CONSTRAINT fk_posts_users FOREIGN KEY (userId) REFERENCES users(id)
+);
