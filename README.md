@@ -111,7 +111,7 @@ Para implementar el proyecto de Programación Orientada a Objetos en Python, se 
 
 <p>
 Para ejecutar la isntalación de todas las dependencias definidas previamente para cada proyecto, debemos crear un archivo <code>requirements.txt</code>, como el que se observa a continuación y luego, mediante el terminal, navegar hasta la ubicación del archivo, para ejecutar el siguiente comando:
-  <pre><code>ppip install -r requirements.txt</code></pre>
+  <pre><code>pip install -r requirements.txt</code></pre>
 </p>
 
 <p>
