@@ -1,6 +1,6 @@
 from datos.conexion import sesion
 from sqlalchemy import func
-from modelos import Company, User
+from modelos import Company, User,Usuario
 
 
 def obtener_listado_objetos(objeto):
@@ -17,9 +17,9 @@ def obtener_user_name(valor):
 
 
 def obtener_usuario_nombre(valor):
-    user_identificado = sesion.query(User).filter(
-        User.name.like(f'%{valor}%')).first()
-    if user_identificado != None and isinstance(user_identificado, User):
+    user_identificado = sesion.query(Usuario).filter(
+        Usuario.usuario.like(f'%{valor}%')).first()
+    if user_identificado != None and isinstance(user_identificado, Usuario):
         return user_identificado
 
 

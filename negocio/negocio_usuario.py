@@ -1,7 +1,7 @@
 import bcrypt
 import getpass
 from modelos import Usuario
-from datos import insertar_objeto
+from datos import insertar_objeto,obtener_usuario_nombre
 
 
 def registrar_usuario():
@@ -27,11 +27,17 @@ def registrar_usuario():
             print(f'Error al guardar al usuario: {error}')
 
 def iniciar_sesion():
-    ingreso_nombre_usuario = input('Ingrese Nombre Usuario: ')
-    ingreso_contrasena = getpass.getpass('Ingrese Contraseña: ')
+    while True:
+        ingreso_nombre_usuario = input('Ingrese Nombre Usuario: ')
+        ingreso_contrasena = getpass.getpass('Ingrese Contraseña: ')
 
-
-    if bcrypt.checkpw(passwd, hashed):
-        return True
-    else:
-        return False
+        usuario=obtener_usuario_nombre(ingreso_nombre_usuario)
+        if usuario:
+            if bcrypt.checkpw(ingreso_contrasena.encode('utf-8'), usuario.contrasena_hash.encode('utf-8')):
+                print('Acceso Concedido!')
+                return True
+            else:
+                print('Contraseña Incorrecta, Intente nuevamente.')
+                return False
+        else:
+            print('Usuario NO encontrado, Intente nuevamente.')
