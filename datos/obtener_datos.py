@@ -16,6 +16,13 @@ def obtener_user_name(valor):
         return user_identificado
 
 
+def obtener_usuario_nombre(valor):
+    user_identificado = sesion.query(User).filter(
+        User.name.like(f'%{valor}%')).first()
+    if user_identificado != None and isinstance(user_identificado, User):
+        return user_identificado
+
+
 def obtener_company_name(valor):
     company_identificada = sesion.query(Company).filter(
         Company.name.like(f'%{valor}%')).first()

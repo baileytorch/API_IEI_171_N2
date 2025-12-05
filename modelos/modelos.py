@@ -91,7 +91,7 @@ class Usuario(Base):
     contrasena_hash = Column(
         String(255),
         nullable=False,
-        comment='Contraseña + Salt hasheada.')
+        comment='Contraseña + Salt.')
     contrasena_salt = Column(
         String(255),
         nullable=False,
