@@ -1,6 +1,6 @@
 from datos.conexion import sesion
 from sqlalchemy import func
-from modelos import Company, User,Usuario
+from modelos import Company, User, Usuario
 
 
 def obtener_listado_objetos(objeto):

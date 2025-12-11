@@ -6,7 +6,7 @@ from datos import insertar_objeto, obtener_listado_objetos, obtener_user_name
 from negocio import crear_geolocalizacion, crear_direccion, crear_compania
 
 
-def obtener_data_usuarios_api(url):
+def obtener_users_api(url):
     respuesta = requests.get(url)
     if respuesta.status_code == 200:
         print("Solicitud correcta, procesando data Users...")
