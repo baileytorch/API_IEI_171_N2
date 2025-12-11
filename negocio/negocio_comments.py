@@ -1,35 +1,25 @@
 import requests
 import json
-from modelos import Comment, Post
+from modelos import Comment
 from datos import insertar_objeto
 from .negocio_posts import crear_publicacion
+from servicios import get_comments_api
 
 
 def obtener_data_comentarios(url):
-    respuesta = requests.get(url)
-    if respuesta.status_code == 200:
-        print("Solicitud correcta, procesando data...")
-        comentarios = respuesta.json()
+    comentarios = get_comments_api()
+    if comentarios:
         for comentario in comentarios:
-            id_publicacion = crear_publicacion(
-                comentario['company']['name'],
-                comentario['company']['catchPhrase'],
-                comentario['company']['bs']
-            )
-
             crear_comentario(
                 comentario['id'],
                 comentario['name'],
                 comentario['email'],
                 comentario['body'],
-                id_publicacion
+                comentario['postId']
             )
-
-    elif respuesta.status_code == 204:
-        print("Consulta ejecutada correctamente, pero NO se han encontrado datos.")
     else:
         print(
-            f"La solicitud falló con el siguiente código de error: {respuesta.status_code}")
+            f"Problemas al procesar su solicitud...")
 
 
 def crear_comentario(numero, nombre, correo, contenido, id_post):

@@ -1,17 +1,15 @@
 from prettytable import PrettyTable
 import requests
-import json
+from servicios import get_users_api, post_user_api, put_user_api, delete_user_api
 from modelos import User
 from datos import insertar_objeto, obtener_listado_objetos, obtener_user_name
 from negocio import crear_geolocalizacion, crear_direccion, crear_compania
 
 
-def obtener_users_api(url):
-    respuesta = requests.get(url)
-    if respuesta.status_code == 200:
-        print("Solicitud correcta, procesando data Users...")
-        usuarios = respuesta.json()
-        for user in usuarios:
+def obtener_users_api():
+    users = get_users_api()
+    if users:
+        for user in users:
             id_geo = crear_geolocalizacion(
                 user['address']['geo']['lat'],
                 user['address']['geo']['lng']
@@ -40,15 +38,12 @@ def obtener_users_api(url):
                 id_direccion,
                 id_compania
             )
-
-    elif respuesta.status_code == 204:
-        print("Consulta ejecutada correctamente, pero NO se han encontrado datos.")
     else:
         print(
-            f"La solicitud falló con el siguiente código de error: {respuesta.status_code}")
+            f"Problemas al procesar su solicitud...")
 
 
-def crear_user_api(url):
+def crear_user_api():
     name = input('Ingrese su nombre: ')
     username = input('Ingrese nombre usuario: ')
     email = input('Ingrese correo: ')
@@ -61,15 +56,13 @@ def crear_user_api(url):
         'phone': phone,
         'website': website
     }
-    respuesta = requests.post(url, data=user)
-    if respuesta.status_code==201:
-        print(respuesta.text)
+    post_user_api(user)
 
 
 def modificar_user_api(url):
     id_user = input('Ingrese ID usuario: ')
     try:
-        id_user=int(id_user)
+        id_user = int(id_user)
     except:
         print('Ingrese un número entero...')
     name = input('Ingrese su nombre: ')
@@ -84,21 +77,16 @@ def modificar_user_api(url):
         'phone': phone,
         'website': website
     }
-    url = f'{url}/{id_user}'
-    respuesta = requests.put(url, data=user)
-    if respuesta.status_code==200:
-        print(respuesta.text)
+    put_user_api(id_user, user)
 
 
 def eliminar_user_api(url):
     id_user = input('Ingrese ID usuario: ')
     try:
-        id_user=int(id_user)
+        id_user = int(id_user)
     except:
         print('Ingrese un número entero...')
-    url = f'{url}/{id_user}'
-    respuesta = requests.delete(url)
-    print(respuesta.text)
+    delete_user_api(id_user)
 
 
 def buscar_user_name_db(nombre):

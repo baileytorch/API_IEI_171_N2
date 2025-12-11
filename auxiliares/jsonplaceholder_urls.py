@@ -1,0 +1,6 @@
+url_albums = 'https://jsonplaceholder.typicode.com/ualbums'
+url_comments = 'https://jsonplaceholder.typicode.com/comments'
+url_photos = 'https://jsonplaceholder.typicode.com/photos'
+url_posts = 'https://jsonplaceholder.typicode.com/posts'
+url_todos= 'https://jsonplaceholder.typicode.com/todos'
+url_users = 'https://jsonplaceholder.typicode.com/users'
